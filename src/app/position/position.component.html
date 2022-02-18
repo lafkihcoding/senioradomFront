@@ -1,0 +1,59 @@
+<div align="center">
+
+
+<form class = "tp-form" [formGroup]="myForm">
+  <mat-label>latitude</mat-label>
+  <mat-form-field class = "tp-full-width">
+    <input matInput placeholder = "latitude"  name="latitude"            formControlName="latitude">
+  </mat-form-field>
+  <br>
+  <br>
+  <br>
+  <mat-label>Longitude</mat-label>
+
+  <mat-form-field class = "tp-full-width">
+    <input matInput placeholder = "longitude"  name="longitude" formControlName="longitude">
+  </mat-form-field>
+<br><br>
+
+</form>
+  <button value="valider" name="valider" (click)="addingPosition()">Ajouter</button>
+   <br>
+   <br>
+  <button value="Calculate" name="Calculate" (click)="calculateDistance()">Calculate distance</button>
+  <h2 *ngIf="distance>0">Distance between the selected point is : {{distance}}</h2>
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="checked">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element" class="action-link">
+        <mat-checkbox [(ngModel)]="element.checked" (click)="calculate(element)"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="latitude">
+      <th mat-header-cell *matHeaderCellDef>latitude </th>
+      <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="longitude">
+      <th mat-header-cell *matHeaderCellDef>longitude </th>
+      <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element" class="action-link">
+        <a (click)="deletePosition(element)">          <mat-icon>delete</mat-icon></a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"  ></tr>
+  </table>
+</div>
